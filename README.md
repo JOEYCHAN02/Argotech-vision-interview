@@ -1,4 +1,11 @@
 # Argotech-vision-interview
+
+开发环境配置思路
+
+拿到面试题后，我首先按照任务类型将开发环境划分为Windows视觉环境和Linux ROS2环境，避免不同依赖相互冲突。OpenCV、YOLO和数据标注任务在Windows 11中完成：使用 Miniforge创建独立的Python 3.11 Conda环境，安装OpenCV、PyTorch、CUDA、Ultralytics等视觉库，并为Labelme单独建立标注环境；随后分别通过库导入、GPU检测和实际程序运行验证环境。
+
+ROS2主要面向Ubuntu，而完整虚拟机会占用较多磁盘空间和内存。综合电脑存储、运行效率以及与Windows文件系统协同的需求，我选择使用WSL2安装Ubuntu 22.04 和ROS2 Humble，以较低的额外资源开销获得接近原生Linux的开发环境，并通过Talker/Listener发布订阅测试验证通信功能。
+
 01 OpenCV的图像处理与形状识别 
 
 在完成本题的过程中，我首先学习了OpenCV的基础图像处理流程，包括使用VideoCapture读取视频、逐帧获取图像、将RGB彩色图像转换为灰度图、使用阈值分割生成二值图、利用二值掩膜提取前景，以及使用 hconcat拼接画面、imshow实时显示结果、VideoWriter保存视频和释放视频资源等内容。同时，我重点学习了固定阈值与动态阈值的区别，并了解了Otsu算法根据当前图像的灰度直方图自动计算阈值的基本原理。
