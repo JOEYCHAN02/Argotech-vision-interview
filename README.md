@@ -34,4 +34,10 @@ ROS2主要面向Ubuntu，而完整虚拟机会占用较多磁盘空间和内存�
 
 后续仍需加入真实拍摄、反光、遮挡、低照度和复杂背景数据，进一步检验模型的泛化能力
 
+ROS2 学习与实现思路
+
+分析题目后，我将 ROS2 部分拆分为环境搭建、基础概念学习、节点创建和话题通信四个阶段。题目指定 Ubuntu 22.04 和 ROS2 Humble，但电脑主要使用 Windows 11；考虑到完整虚拟机需要额外占用较多磁盘和内存，同时本项目的 OpenCV、Labelme 和 YOLO 已在 Windows 环境中完成，因此最终采用 WSL2 安装 Ubuntu 22.04，在保留 Windows 开发环境的同时获得接近原生 Linux 的 ROS2 环境，并将 ROS2 与 Windows 下的 Python 视觉环境相互隔离。
+
+学习过程中，我先安装并验证 ROS2 Humble，通过官方 Talker 和 Listener 示例理解发布订阅通信，再按照题目要求学习节点、话题、服务和动作的基本区别。其中，话题适合持续传输视觉检测结果，服务适合一次请求与响应，动作适合需要反馈和取消的耗时任务。随后创建 arcotech_ros2_ws 工作空间和 Python 功能包 agri_vision_demo，分别使用直接实例化 Node 和继承 Node 两种方式输出 hello, world，理解简单节点与类式节点的组织差异。最后使用 rclpy 和 std_msgs/msg/String 编写发布者与订阅者：发布者每隔1秒向 /vision/plant_status 发布“检测到作物”，订阅者接收消息并输出对应日志。项目通过 colcon build 构建，并使用 ros2 node list、ros2 topic info 和 ros2 topic hz 检查节点、消息类型、发布订阅数量及约1 Hz的通信频率，最终完成了从环境配置、基础原理学习到指定话题通信功能的完整实践。
+
 
