@@ -1,0 +1,16 @@
+model: YOLO11n
+pretrained_weights: models/yolo11n.pt
+task: detect
+classes: 10
+image_size: 640
+epochs: 100
+batch_size: 8
+device: CUDA:0
+workers: 0
+random_seed: 42
+dataset:
+  total: 2000
+  train: 1400
+  val: 400
+  test: 200
+
